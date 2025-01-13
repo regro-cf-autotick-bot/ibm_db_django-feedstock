@@ -6,26 +6,28 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: c5536c5783d46265deb2c22e415ff0ed569a7bd0b0dbf4692b02adf857c6c1a6
 
 build:
   noarch: python
-  number: 0
+  number: 1
   script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
   host:
-    - python >=3.6
+    - python {{ python_min }}
     - pip
     - setuptools
 
   run:
-    - python >=3.6
+    - python >={{ python_min }}
     - setuptools
     - django
 
 test:
+  requires:
+    - python {{ python_min }}
   imports:
     - ibm_db_django
 
